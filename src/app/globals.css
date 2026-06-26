@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import "@pxlkit/ui-kit/styles.css";
+
+@font-face {
+  font-family: 'Zpix';
+  src: url('/assets/zpix.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* 从设计稿提取的全局颜色主题 */
+  --bg-parchment: #fdf5e6;
+  --bg-panel: #fffdf9;
+  --text-primary: #3d352b;
+  --text-secondary: #8c8270;
+  
+  --accent-green: #5c9e69;
+  --accent-blue: #5b8bc6;
+  --accent-red: #c95c5c;
+  --accent-gold: #cfa853;
+}
+
+@theme inline {
+  --color-parchment: var(--bg-parchment);
+  --color-panel: var(--bg-panel);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent-green: var(--accent-green);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-red: var(--accent-red);
+  --color-accent-gold: var(--accent-gold);
+}
+
+html, body {
+  background-color: var(--bg-parchment);
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--text-primary);
+  font-family: 'Zpix', 'PxlKit Mono', 'Courier New', monospace !important;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+}
+
+*, *::before, *::after {
+  font-family: 'Zpix', 'PxlKit Mono', 'Courier New', monospace !important;
+}
+
+.pixel-panel {
+  border-style: solid;
+  border-width: 12px;
+  border-image-source: url('/assets/border01.png');
+  border-image-slice: 155; 
+  border-image-width: 32px; 
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+}
+
+.pixel-panel-sm {
+  border-style: solid;
+  border-width: 8px;
+  border-image-source: url('/assets/border01.png');
+  border-image-slice: 155; 
+  border-image-width: 20px; 
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+}
+
+.pixel-panel-xs {
+  border-style: solid;
+  border-width: 4px;
+  border-image-source: url('/assets/border01.png');
+  border-image-slice: 155; 
+  border-image-width: 10px; 
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+  background-color: var(--bg-panel);
+}
+
+.pixel-panel-green {
+  border-style: solid;
+  border-width: 8px;
+  border-image-source: url('/assets/border01.png');
+  border-image-slice: 155; 
+  border-image-width: 20px; 
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+  filter: hue-rotate(85deg) saturate(1.8) brightness(0.65);
+}
+
+/* 内部面板 (用于文章列表、今日记录等) */
+.inner-panel {
+  background-color: var(--bg-panel);
+  border: 2px solid #d4c4a8; /* 设计图中的细边框颜色 */
+  border-radius: 4px; /* 细微的圆角显得更柔和 */
+  position: relative;
+}
+/* 给内边框加四个角的装饰点 */
+.inner-panel::before, .inner-panel::after {
+  content: '';
+  position: absolute;
+  width: 4px; height: 4px;
+  background: var(--bg-panel);
+  border: 2px solid #d4c4a8;
+  z-index: 10;
+}
+.inner-panel::before { top: -3px; left: -3px; box-shadow: calc(100% + 4px) 0 0 #d4c4a8; }
+/* TODO: 完整的装饰角可以用多重 box-shadow 实现，先保持极简 */
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+::-webkit-scrollbar-thumb {
+  background: #d4c5ab;
+  border: 1px solid var(--bg-parchment);
+}
+
+/* 底部公告栏跑马灯 */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* 导航栏激活状态 */
+.nav-item-active {
+  background: var(--accent-green);
+  color: white;
+}
+
+/* 响应式笔记本高度缩放，确保在笔记本分辨率下排版完全适配且不溢出 */
+@media (max-height: 850px) {
+  .pixel-panel {
+    border-width: 8px !important;
+    border-image-width: 24px !important;
+  }
+  .pixel-panel-sm {
+    border-width: 6px !important;
+    border-image-width: 16px !important;
+  }
+  .pixel-panel-xs {
+    border-width: 3px !important;
+    border-image-width: 8px !important;
+  }
+  .pixel-panel-green {
+    border-width: 6px !important;
+    border-image-width: 16px !important;
+  }
+  header {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  .header-logo {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+}
