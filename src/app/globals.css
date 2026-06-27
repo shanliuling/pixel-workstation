@@ -20,6 +20,9 @@
   --accent-blue: #5b8bc6;
   --accent-red: #c95c5c;
   --accent-gold: #cfa853;
+  
+  /* 像素边框缩放比例 */
+  --pixel-scale: 2;
 }
 
 @theme inline {
@@ -65,6 +68,17 @@ html, body {
   border-image-source: url('/assets/border01.png');
   border-image-slice: 155; 
   border-image-width: 20px; 
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+}
+
+.pixel-panel-svg {
+  border-style: solid;
+  border-width: 16px;
+  /* 极致还原的复古 RPG 像素边框：双色搭配、切角处理、带内嵌方形铆钉 */
+  border-image-source: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='crispEdges'><path d='M1 0 h22 v1 h1 v22 h-1 v1 h-22 v-1 h-1 v-22 h1 Z M3 2 h18 v1 h1 v18 h-1 v1 h-18 v-1 h-1 v-18 h1 v-1 Z' fill='%233d352b' fill-rule='evenodd'/><path d='M4 4 h16 v16 h-16 Z M5 5 h14 v14 h-14 Z' fill='%23d4c4a8' fill-rule='evenodd'/><rect x='4' y='4' width='3' height='3' fill='%23d4c4a8'/><rect x='5' y='5' width='1' height='1' fill='%233d352b'/><rect x='17' y='4' width='3' height='3' fill='%23d4c4a8'/><rect x='18' y='5' width='1' height='1' fill='%233d352b'/><rect x='4' y='17' width='3' height='3' fill='%23d4c4a8'/><rect x='5' y='18' width='1' height='1' fill='%233d352b'/><rect x='17' y='17' width='3' height='3' fill='%23d4c4a8'/><rect x='18' y='18' width='1' height='1' fill='%233d352b'/></svg>");
+  border-image-slice: 8;
+  border-image-width: 16px;
   border-image-repeat: stretch;
   image-rendering: pixelated;
 }
@@ -140,6 +154,9 @@ html, body {
 
 /* 响应式笔记本高度缩放，确保在笔记本分辨率下排版完全适配且不溢出 */
 @media (max-height: 850px) {
+  :root {
+    --pixel-scale: 1; /* 小屏幕下将像素边框缩小一半，节省大量内边距空间 */
+  }
   .pixel-panel {
     border-width: 8px !important;
     border-image-width: 24px !important;

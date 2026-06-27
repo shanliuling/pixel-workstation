@@ -4,6 +4,7 @@ import { skills, techStack } from '@/lib/mock';
 import { AutoPxlIcon } from './AutoPxlIcon';
 import { Pencil, Package, Grid, Robot, ArrowRight } from '@pxlkit/ui';
 import { Crown, Sword, FloatingGem, Chest, FloatingSkull } from '@pxlkit/gamification';
+import { PixelFrame } from './PixelFrame';
 
 const techIcons = {
   Code: Pencil,
@@ -19,7 +20,7 @@ export function SidebarRight() {
   return (
     <aside className="flex flex-col gap-4 h-full overflow-y-auto custom-scrollbar p-1">
       {/* Status */}
-      <div className="pixel-panel-sm bg-panel">
+      <PixelFrame bg="var(--bg-panel)">
         <div className="p-1">
           <h3 className="font-bold text-xs text-text-secondary tracking-widest mb-3">角色状态 / Status</h3>
           <div className="flex gap-3 items-center mb-4">
@@ -49,10 +50,10 @@ export function SidebarRight() {
             <span>Lv.28 冒险者</span>
           </div>
         </div>
-      </div>
+      </PixelFrame>
 
       {/* Skills */}
-      <div className="pixel-panel-sm bg-panel">
+      <PixelFrame bg="var(--bg-panel)">
         <div className="p-1">
           <h3 className="font-bold text-xs text-text-secondary tracking-widest mb-3">技能树 / Skills</h3>
           <div className="flex flex-col gap-2">
@@ -75,10 +76,10 @@ export function SidebarRight() {
             </a>
           </div>
         </div>
-      </div>
+      </PixelFrame>
 
       {/* Tech Stack */}
-      <div className="pixel-panel-sm bg-panel">
+      <PixelFrame bg="var(--bg-panel)">
         <div className="p-1">
           <h3 className="font-bold text-xs text-text-secondary tracking-widest mb-3">技术栈 / Tech Stack</h3>
           <div className="grid grid-cols-4 gap-2.5">
@@ -95,10 +96,10 @@ export function SidebarRight() {
             })}
           </div>
         </div>
-      </div>
+      </PixelFrame>
 
       {/* Today's Visitor */}
-      <div className="pixel-panel-sm bg-panel relative overflow-hidden">
+      <PixelFrame className="relative overflow-hidden" bg="var(--bg-panel)">
         <div className="p-1 min-h-[70px]">
           <h3 className="font-bold text-xs text-text-secondary tracking-widest mb-2">今日访客 / Today's Visitor</h3>
           <p className="text-xs font-bold relative z-10 leading-relaxed">嗨！我是小绿豆～<br/>喜欢旅行和收集星星！</p>
@@ -106,7 +107,7 @@ export function SidebarRight() {
             <AutoPxlIcon icon={FloatingSkull} size={48} appearance="palette" />
           </div>
         </div>
-      </div>
+      </PixelFrame>
     </aside>
   );
 }

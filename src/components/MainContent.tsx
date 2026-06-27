@@ -2,6 +2,7 @@
 
 import { latestPosts, todayLogs } from '@/lib/mock';
 import { AutoPxlIcon } from './AutoPxlIcon';
+import { PixelFrame } from './PixelFrame';
 import { PixelBadge, PixelProgress } from '@pxlkit/ui-kit';
 import { Pencil, ArrowRight, Check, Clock } from '@pxlkit/ui';
 import { QuestCompass, Scroll, QuestMap } from '@pxlkit/gamification';
@@ -9,7 +10,7 @@ import { Sparkles } from '@pxlkit/feedback';
 
 export function MainContent() {
   return (
-    <main className="flex flex-col gap-3 flex-1 h-full overflow-hidden">
+    <main className="flex flex-col gap-3 flex-1 h-full w-full overflow-hidden">
       {/* Hero Banner */}
       <div className="w-full aspect-[1200/380] relative overflow-hidden rounded-md shrink-0 select-none bg-[#fdf5e6]">
         {/* Background Image (Base Empty Room) */}
@@ -38,46 +39,48 @@ export function MainContent() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col gap-3 min-h-0">
-        <div className="grid grid-cols-[55%_45%] gap-3 flex-1 min-h-0">
+      <div className="flex-1 flex flex-col gap-3 min-h-0 w-full">
+        <div className="grid grid-cols-5 gap-3 flex-1 min-h-0 w-full">
           {/* Latest Posts */}
-          <div className="pixel-panel-sm bg-panel h-full flex flex-col overflow-hidden">
-            <div className="p-1 h-full flex flex-col">
-              <div className="flex justify-between items-center mb-3 border-b-2 border-text-secondary/20 border-dashed pb-2 shrink-0">
-                <h3 className="font-bold text-sm tracking-wider">最新文章 / Latest Posts</h3>
-                <a href="#" className="text-accent-blue text-xs flex items-center hover:underline">
-                  查看更多 <AutoPxlIcon icon={ArrowRight} size={12} appearance="solid" color="#5b8bc6" className="ml-0.5" />
-                </a>
-              </div>
-              <div className="flex flex-col gap-2 overflow-y-auto custom-scrollbar flex-1 pr-1">
-                {latestPosts.map((post) => (
-                  <div key={post.id} className="pixel-panel-xs p-2 flex gap-3 group cursor-pointer hover:-translate-y-0.5 hover:shadow-[1px_1px_0_rgba(0,0,0,0.15)] transition-all">
-                    <div className="w-10 h-10 bg-text-secondary/10 border-2 border-text-primary/20 rounded-sm shrink-0 flex items-center justify-center overflow-hidden">
-                      <AutoPxlIcon icon={Scroll} size={20} appearance="palette" className="group-hover:scale-110 transition-transform" />
-                    </div>
-                    <div className="flex flex-col justify-center w-full min-w-0">
-                      <h4 className="font-bold text-xs text-text-primary group-hover:text-accent-blue transition-colors truncate">{post.title}</h4>
-                      <div className="flex items-center justify-between mt-1">
-                        <PixelBadge tone="cyan" variant="soft" className="text-[9px] px-1 py-0.5">{post.tag}</PixelBadge>
-                        <div className="flex items-center gap-2 text-[10px] text-text-secondary">
-                          <span className="flex items-center gap-0.5">
-                            <AutoPxlIcon icon={Clock} size={10} appearance="solid" color="#8c8270" /> {post.readTime}
-                          </span>
-                          <span>{post.date}</span>
+          <div className="col-span-3 h-full overflow-hidden flex flex-col min-h-0">
+            <PixelFrame className="flex-1 flex flex-col overflow-hidden min-h-0" bg="var(--bg-panel)">
+              <div className="h-full flex flex-col min-h-0">
+                <div className="flex justify-between items-center mb-3 border-b-2 border-text-secondary/20 border-dashed pb-2 shrink-0">
+                  <h3 className="font-bold text-sm tracking-wider">最新文章 / Latest Posts</h3>
+                  <a href="#" className="text-accent-blue text-xs flex items-center hover:underline">
+                    查看更多 <AutoPxlIcon icon={ArrowRight} size={12} appearance="solid" color="#5b8bc6" className="ml-0.5" />
+                  </a>
+                </div>
+                <div className="flex flex-col gap-2 overflow-y-auto custom-scrollbar flex-1 pr-1">
+                  {latestPosts.map((post) => (
+                    <div key={post.id} className="pixel-panel-xs p-2 flex gap-3 group cursor-pointer hover:-translate-y-0.5 hover:shadow-[1px_1px_0_rgba(0,0,0,0.15)] transition-all">
+                      <div className="w-10 h-10 bg-text-secondary/10 border-2 border-text-primary/20 rounded-sm shrink-0 flex items-center justify-center overflow-hidden">
+                        <AutoPxlIcon icon={Scroll} size={20} appearance="palette" className="group-hover:scale-110 transition-transform" />
+                      </div>
+                      <div className="flex flex-col justify-center w-full min-w-0">
+                        <h4 className="font-bold text-xs text-text-primary group-hover:text-accent-blue transition-colors truncate">{post.title}</h4>
+                        <div className="flex items-center justify-between mt-1">
+                          <PixelBadge tone="cyan" variant="soft" className="text-[9px] px-1 py-0.5">{post.tag}</PixelBadge>
+                          <div className="flex items-center gap-2 text-[10px] text-text-secondary">
+                            <span className="flex items-center gap-0.5">
+                              <AutoPxlIcon icon={Clock} size={10} appearance="solid" color="#8c8270" /> {post.readTime}
+                            </span>
+                            <span>{post.date}</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            </PixelFrame>
           </div>
 
           {/* Right Column inside Grid: Logs & Quest */}
-          <div className="flex flex-col gap-3 h-full overflow-hidden">
+          <div className="col-span-2 flex flex-col gap-3 h-full overflow-hidden min-h-0">
             {/* Today's Log */}
-            <div className="pixel-panel-sm bg-panel flex-1 flex flex-col overflow-hidden">
-              <div className="p-1 h-full flex flex-col">
+            <PixelFrame className="flex-1 flex flex-col overflow-hidden min-h-0" bg="var(--bg-panel)">
+              <div className="p-1 h-full flex flex-col min-h-0">
                 <div className="flex justify-between items-center mb-3 border-b-2 border-text-secondary/20 border-dashed pb-2 shrink-0">
                   <h3 className="font-bold text-sm tracking-wider">今日记录 / Today's Log</h3>
                   <a href="#" className="text-accent-blue text-xs flex items-center hover:underline">
@@ -98,10 +101,10 @@ export function MainContent() {
                   ))}
                 </div>
               </div>
-            </div>
+            </PixelFrame>
 
             {/* Current Quest */}
-            <div className="pixel-panel-sm bg-panel shrink-0">
+            <PixelFrame className="shrink-0" bg="var(--bg-panel)">
               <div className="p-1">
                 <h3 className="font-bold text-sm tracking-wider mb-2 border-b-2 border-text-secondary/20 border-dashed pb-2">当前任务 / Current Quest</h3>
                 <div className="flex gap-3 items-center">
@@ -120,12 +123,12 @@ export function MainContent() {
                   </div>
                 </div>
               </div>
-            </div>
+            </PixelFrame>
           </div>
         </div>
         
         {/* Recent Activity */}
-        <div className="pixel-panel-sm bg-panel">
+        <PixelFrame bg="var(--bg-panel)">
           <div className="p-0.5 flex justify-between items-center text-xs">
             <div className="flex items-center gap-3">
               <h3 className="font-bold tracking-wider border-r-2 border-text-secondary/20 pr-3">最近动态 / Recent Activity</h3>
@@ -136,7 +139,7 @@ export function MainContent() {
             </div>
             <span className="text-text-secondary shrink-0">2分钟前</span>
           </div>
-        </div>
+        </PixelFrame>
       </div>
     </main>
   );

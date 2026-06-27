@@ -5,6 +5,7 @@ import { AutoPxlIcon } from './AutoPxlIcon';
 import { Home, Settings, ArrowRight, Play, Undo, Redo } from '@pxlkit/ui';
 import { SpellBook, Scroll, QuestCompass, Chest, Elixir, Amulet } from '@pxlkit/gamification';
 import { Sparkles } from '@pxlkit/feedback';
+import { PixelFrame } from './PixelFrame';
 
 const pxlIcons = {
   House: Home,
@@ -24,18 +25,9 @@ export function SidebarLeft() {
       <nav className="flex flex-col gap-2 p-1">
         {navItems.map((item) => {
           const PxlIcon = pxlIcons[item.icon as keyof typeof pxlIcons];
-          return (
-            <a
-              key={item.id}
-              href={item.href}
-              className={`flex items-center gap-4 transition-all group ${
-                item.active 
-                  ? 'pixel-panel-green bg-panel text-white shadow-sm' 
-                  : 'px-4 py-3 hover:bg-text-secondary/10 rounded-sm'
-              }`}
-              style={item.active ? { padding: '4px 8px' } : undefined}
-            >
-              <div className="w-8 flex justify-center">
+          const content = (
+            <div className={`flex items-center gap-4 transition-all w-full ${item.active ? 'text-white' : ''}`}>
+              <div className="w-8 flex justify-center shrink-0">
                 {PxlIcon && (
                   <AutoPxlIcon 
                     icon={PxlIcon} 
@@ -45,22 +37,49 @@ export function SidebarLeft() {
                   />
                 )}
               </div>
-              <div className="flex flex-col flex-1">
-                <span className="font-bold text-base tracking-wider">{item.label}</span>
-                <span className={`text-[9px] tracking-widest ${item.active ? 'text-white/80' : 'text-text-secondary'}`}>
+              <div className="flex flex-col flex-1 min-w-0">
+                <span className="font-bold text-base tracking-wider truncate">{item.label}</span>
+                <span className={`text-[9px] tracking-widest truncate ${item.active ? 'text-white/80' : 'text-text-secondary'}`}>
                   {item.labelEn}
                 </span>
               </div>
               {item.active && (
-                <AutoPxlIcon icon={ArrowRight} size={10} appearance="solid" color="#ffffff" className="mr-1" />
+                <AutoPxlIcon icon={ArrowRight} size={10} appearance="solid" color="#ffffff" className="mr-1 shrink-0" />
               )}
+            </div>
+          );
+
+          if (item.active) {
+            return (
+              <a key={item.id} href={item.href} className="block transition-all group">
+                <PixelFrame 
+                  borderColor="#3d352b" 
+                  fillColor="var(--accent-green)" 
+                  bg="var(--accent-green)" 
+                  padding={2} 
+                  className="shadow-[1px_1px_0_rgba(0,0,0,0.15)] cursor-default"
+                  style={{ '--pixel-scale': '1' } as any}
+                >
+                  {content}
+                </PixelFrame>
+              </a>
+            );
+          }
+
+          return (
+            <a
+              key={item.id}
+              href={item.href}
+              className="flex items-center gap-4 transition-all group px-3 py-2 hover:bg-text-secondary/10 rounded-sm"
+            >
+              {content}
             </a>
           );
         })}
       </nav>
 
       {/* Music Player */}
-      <div className="pixel-panel-sm bg-panel mt-auto">
+      <PixelFrame className="mt-auto bg-panel">
         <div className="p-1">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 bg-accent-blue/20 border-2 border-text-primary rounded-sm flex items-center justify-center overflow-hidden shrink-0">
@@ -94,7 +113,7 @@ export function SidebarLeft() {
             </button>
           </div>
         </div>
-      </div>
+      </PixelFrame>
     </aside>
   );
 }

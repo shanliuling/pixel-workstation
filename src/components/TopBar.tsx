@@ -15,7 +15,7 @@ const pxlIcons = {
 
 export function TopBar() {
   return (
-    <header className="flex items-center justify-between py-3 px-4 w-full shrink-0">
+    <header className="flex items-center justify-between py-1.5 px-3 w-full shrink-0">
       {/* Logo & Title */}
       <div className="flex items-center gap-4 pl-2">
         <div className="w-12 h-12 bg-white border-2 border-text-primary flex items-center justify-center p-1 rounded-sm shadow-[2px_2px_0_var(--text-primary)] header-logo shrink-0">
